@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Controller\ApiController;
+use App\Controller\TokenAuthenticatedController;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -22,7 +23,7 @@ class TokenSubscriber implements EventSubscriberInterface {
     public function beforeController(ControllerEvent $event) {
         $controller = $event -> getController();
 
-        if(is_array($controller) && $controller[0] instanceOf ApiController) {
+        if(is_array($controller) && $controller[0] instanceOf TokenAuthenticatedController) {
             $token = $event -> getRequest() -> query -> get( key: 'token' );
             if(!in_array($token, $this -> tokens)) {
                 throw new AccessDeniedHttpException( message: 'this needs a valid token' );

@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class ApiController extends AbstractController
+class ApiController extends AbstractController implements TokenAuthenticatedController
 {
     /**
      * @Route("/api/rooms")
